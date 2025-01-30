@@ -14,3 +14,14 @@ once container setup ran
 `sudo apt update && sudo apt install docker.io -y`
 and 
 `sudo usermod -aG docker $USER`
+and 
+`sudo apt update && sudo apt install git -y`
+and
+`git clone https://github.com/chaseelliottpatterson/chase-patterson.git website`
+and 
+`cd website`
+and
+`docker build -t website .`
+and
+`docker run -d -p 80:80 --name website-container website`
+
