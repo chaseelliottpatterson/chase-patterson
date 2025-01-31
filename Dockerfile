@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-# Install dependencies quietly
+# Install dependencies
 RUN apt update && \
     DEBIAN_FRONTEND=noninteractive apt install -y apt-utils certbot python3-certbot-nginx && \
     rm -rf /var/lib/apt/lists/*
@@ -11,5 +11,5 @@ COPY . /usr/share/nginx/html
 # Copy Nginx config
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80 443
+# Ensure Nginx runs first
 CMD ["nginx", "-g", "daemon off;"]
