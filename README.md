@@ -25,3 +25,10 @@ and
 and
 `docker run -d -p 80:80 --name website-container website`
 
+```cd ~/my-website
+git pull origin main  # Fetch latest updates
+docker build -t my-website .  # Rebuild the container
+docker stop website-container  # Stop the old container
+docker rm website-container  # Remove the old container
+docker run -d -p 80:80 --name website-container my-website  # Run the new one
+```
