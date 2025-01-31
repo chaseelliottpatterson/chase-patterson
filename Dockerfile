@@ -1,17 +1,13 @@
-# Use the official Nginx image
 FROM nginx:latest
 
-# Set working directory
-WORKDIR /usr/share/nginx/html
+# Install Certbot
+RUN apt update && apt install -y certbot python3-certbot-nginx
 
-# Copy website files to the Nginx root directory
+# Copy website files
 COPY . /usr/share/nginx/html
 
-# Copy custom Nginx config
+# Copy Nginx config
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80 for web traffic
-EXPOSE 80
-
-# Start Nginx
+EXPOSE 80 443
 CMD ["nginx", "-g", "daemon off;"]
