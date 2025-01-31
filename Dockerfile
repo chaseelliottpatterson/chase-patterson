@@ -1,7 +1,9 @@
 FROM nginx:latest
 
-# Install Certbot
-RUN apt update && apt install -y certbot python3-certbot-nginx
+# Install dependencies quietly
+RUN apt update && \
+    DEBIAN_FRONTEND=noninteractive apt install -y apt-utils certbot python3-certbot-nginx && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy website files
 COPY . /usr/share/nginx/html
