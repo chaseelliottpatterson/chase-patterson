@@ -1,12 +1,9 @@
 FROM nginx:latest
 
-# Install dependencies (snapd for Certbot)
+# Install dependencies
 RUN apt update && \
-    apt install -y snapd && \
-    snap install core && \
-    snap refresh core && \
-    snap install --classic certbot && \
-    ln -s /snap/bin/certbot /usr/bin/certbot && \
+    DEBIAN_FRONTEND=noninteractive apt install -y \
+    certbot python3-certbot-nginx && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy website files
