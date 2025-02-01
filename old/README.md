@@ -32,3 +32,6 @@ docker stop website-container  # Stop the old container
 docker rm website-container  # Remove the old container
 docker run -d -p 80:80 --name website-container my-website  # Run the new one
 ```
+
+_________________________________________________________________________________________________________________________________________________________
+`sudo apt update && sudo apt install docker -y && sudo apt install docker-compose -y && sudo usermod -aG docker $USER && sudo apt install git -y && git clone https://github.com/chaseelliottpatterson/chase-patterson.git website`
