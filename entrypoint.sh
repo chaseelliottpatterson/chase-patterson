@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Wait for Nginx to be ready
+sleep 5
+
 # Check if SSL certificate exists, if not, request it
 if [ ! -f "/etc/letsencrypt/live/chase-patterson.com/fullchain.pem" ]; then
     echo "No SSL certificate found. Requesting one now..."
