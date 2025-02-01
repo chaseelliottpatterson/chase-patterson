@@ -1,0 +1,22 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d
+      # - ./nginx-secrets:/etc/letsencrypt
+      - ./www:/usr/share/nginx/html
+
+  # certbot:
+  #   image: certbot/certbot
+  #   container_name: certbot
+  #   volumes:
+  #     - ./nginx-secrets:/etc/letsencrypt
+  #     - ./www:/var/www/certbot
+  #   entrypoint: certbot certonly --webroot -w /var/www/certbot --email chaseelliottpatterson@gmail.com --agree-tos --no-eff-email --staging -d chase-patterson.com -d www.chase-patterson.com
+
