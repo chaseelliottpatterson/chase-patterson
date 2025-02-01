@@ -1,15 +1,28 @@
 FROM nginx:latest
 
-# Install dependencies
+# Install dependencies (snapd for Certbot)
 RUN apt update && \
-    DEBIAN_FRONTEND=noninteractive apt install -y apt-utils certbot python3-certbot-nginx && \
+    apt install -y snapd && \
+    snap install core && \
+    snap refresh core && \
+    snap install --classic certbot && \
+    ln -s /snap/bin/certbot /usr/bin/certbot && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy website files
 COPY . /usr/share/nginx/html
 
-# Copy Nginx config
+# Copy Nginx configuration
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-# Ensure Nginx runs first
-CMD ["nginx", "-g", "daemon off;"]
+# Ensure SSL directory exists (prevents Nginx startup failure)
+RUN mkdir -p /etc/letsencrypt/live/chase-patterson.com
+
+# Add a script to automatically request SSL on first run
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 80 443
+
+# Run entrypoint script first, then start Nginx
+CMD ["/entrypoint.sh"]
