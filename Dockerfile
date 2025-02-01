@@ -11,8 +11,9 @@ RUN mkdir -p /var/www/certbot
 # Copy website files
 COPY . /usr/share/nginx/html
 
-# Copy Nginx config
+# Copy Nginx configs (HTTP & SSL)
 COPY default.conf /etc/nginx/conf.d/default.conf
+COPY default-ssl.conf /etc/nginx/conf.d/default-ssl.conf
 
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
